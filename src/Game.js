@@ -2,14 +2,14 @@ import React from 'react';
 
 import './styles/main.scss';
 
-const HEIGHT = 350; //Screen height
-const WIDTH = 320; //Screen width
+const HEIGHT = 380; //Screen height
+const WIDTH = 300; //Screen width
 // const WIDTH = 800; //Screen width
 const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
 const FPS = 80;
 const manufacturedPipeTime = 250; //For Increasing speed, decrease
 let SCORE = 0
-let SPACE = HEIGHT / 5; //Between pipes
+let SPACE = HEIGHT / 4.5; //Between pipes
 
 class Bee {
   constructor(ctx) {

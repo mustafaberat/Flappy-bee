@@ -12,8 +12,9 @@ body {
     .btn-container {
       .btn {
         padding: 8px 15px;
-        color: white;
-        background-color: $black;
+        background-color: $yellow;
+        font-weight: bold;
+        border: 2px solid $black;
         border-radius: 4px;
         cursor: pointer;
       }
