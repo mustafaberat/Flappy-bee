@@ -2,8 +2,8 @@ import React from 'react';
 
 import './styles/main.scss';
 
-const HEIGHT = 500; //Screen height
-const WIDTH = 300; //Screen width
+const HEIGHT = 350; //Screen height
+const WIDTH = 320; //Screen width
 // const WIDTH = 800; //Screen width
 const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
 const FPS = 80;
