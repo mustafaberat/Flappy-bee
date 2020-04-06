@@ -45,13 +45,11 @@ class Pipe {
     this.isDead = false;
     this.y = height ? HEIGHT - height : 0;
     this.width = PIPE_WIDTH;
-    this.highlight = false;
     this.height = height || (Math.max(Math.floor(Math.random() * HEIGHT * 0.7), SPACE * 1.2)) //MIN: 96 - MAX:350;
   }
 
   drawPipes() {
-    console.log("Highlight: " + this.highlight)
-    this.highlight ? this.ctx.fillStyle = "#ff000f" : this.ctx.fillStyle = "#0fff5a";
+    this.ctx.fillStyle = "#0fff5a";
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
@@ -128,7 +126,6 @@ class Game extends React.Component {
     this.pipes.forEach(pipe => {
       if (this.bee.y >= HEIGHT || this.bee.y <= 0 || (this.bee.x > pipe.x && this.bee.x < pipe.x + pipe.width &&
         this.bee.y > pipe.y && this.bee.y < pipe.y + pipe.height)) {
-        this.highlight = true;
         gameover = true
       }
     })
