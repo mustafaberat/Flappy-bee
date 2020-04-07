@@ -2,8 +2,8 @@ import React from 'react';
 
 import './styles/main.scss';
 
-const HEIGHT = 400; //Screen height
-const WIDTH = 300; //Screen width
+let HEIGHT = window.innerHeight * 0.8; //Screen height
+let WIDTH = window.innerWidth * 0.8; //Screen width
 // const WIDTH = 800; //Screen width
 const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
 const FPS = 80;
@@ -45,7 +45,7 @@ class Pipe {
     this.isDead = false;
     this.y = height ? HEIGHT - height : 0;
     this.width = PIPE_WIDTH;
-    this.height = height || (Math.max(Math.floor(Math.random() * HEIGHT * 0.7), SPACE * 1.2)) //MIN: 96 - MAX:350;
+    this.height = height || (Math.max(Math.floor(Math.random() * HEIGHT * 0.7), SPACE * 1.2))
   }
 
   drawPipes() {
@@ -99,7 +99,7 @@ class Game extends React.Component {
   generatePipes = () => {
     var ctx = this.getCtx();
     const firstPipe = new Pipe(ctx, null)
-    const secondPipeHeight = HEIGHT - firstPipe.height - SPACE //MIN: 70 - MAX:324 
+    const secondPipeHeight = HEIGHT - firstPipe.height - SPACE
     const secondPipe = new Pipe(ctx, secondPipeHeight)
     return [firstPipe, secondPipe]
   }
@@ -111,7 +111,7 @@ class Game extends React.Component {
   }
 
   updateScore = () => {
-    this.setState({ score: SCORE / 2 })
+    this.setState({ score: SCORE / 2 }) //Because of two discrete pipes
   }
 
   updateGame = () => {
@@ -177,11 +177,15 @@ class Game extends React.Component {
           height={HEIGHT}
           style={{ marginTop: '10px', border: '1px solid #c3c3c3' }} >
         </canvas>
-        <div className="btn-container no-selection">
-          <span>Score: {(this.state.score)}</span>
+        <div className="btn-container no-selection"
+          style={{ 'width': WIDTH }}
+        >
+          <span style={{ visibility: 'hidden' }}>Best Score: </span>
           <button className="btn" disabled={!this.state.gameOverInfo} onClick={() => {
             window.location.reload(false);
           }}>Restart</button>
+          <span>Score: {(this.state.score)}</span>
+
         </div>
       </div>
     );
