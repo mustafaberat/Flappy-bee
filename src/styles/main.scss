@@ -26,10 +26,10 @@ body {
 
     .btn-container {
       margin-top: 20px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 33% 34% 33%;
       text-align: center;
       align-items: center;
-      justify-content: space-between;
       .btn {
         padding: 8px 15px;
         background-color: $yellow;
