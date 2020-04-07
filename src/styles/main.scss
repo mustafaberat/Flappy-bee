@@ -1,10 +1,10 @@
 //FONT
-@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;700&display=swap");
 
 $red: #ff000f;
-$yellow: #ffce1c;
+$yellow: #ffd640;
 $green: #0fff5a;
-$black: #333e40;
+$black: #191c1d;
 
 .no-selection {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -18,6 +18,8 @@ $black: #333e40;
 
 body {
   font-family: "Comic Neue", cursive;
+  background-color: $black;
+  font-weight: normal;
   .container {
     margin-left: auto;
     margin-right: auto;
@@ -34,11 +36,11 @@ body {
       grid-template-columns: 33% 34% 33%;
       text-align: center;
       align-items: center;
-      background-color: $black;
-      color: $green;
+      background-color: $yellow;
+      color: $black;
       .btn {
         padding: 8px 15px;
-        background-color: $black;
+        background-color: $yellow;
         font-weight: bold;
         border: 0;
         border-radius: 4px;
