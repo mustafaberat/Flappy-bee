@@ -2,7 +2,7 @@ import React from 'react';
 
 import './styles/main.scss';
 
-const HEIGHT = 380; //Screen height
+const HEIGHT = 400; //Screen height
 const WIDTH = 300; //Screen width
 // const WIDTH = 800; //Screen width
 const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
@@ -53,15 +53,18 @@ class Pipe {
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
-  increaseScore() { SCORE += 1; console.log("Score: " + SCORE) }
-
   updatePipe() {
     this.x -= 1
     if ((this.x + PIPE_WIDTH) < 0) {
       this.isDead = true;
-      this.increaseScore();
+      (this.isDead === true) && (this.increaseScore())
     }
   }
+
+  increaseScore() {
+    SCORE += 1;
+  }
+
 }
 
 class Game extends React.Component {
@@ -73,7 +76,7 @@ class Game extends React.Component {
     this.bee = null;
     this.state = {
       gameOverInfo: false,
-      bestScore: 0
+      score: 0
     }
   }
 
@@ -103,7 +106,12 @@ class Game extends React.Component {
 
   gameLoop = () => {
     this.updateGame();
+    this.updateScore();
     this.draw();
+  }
+
+  updateScore = () => {
+    this.setState({ score: SCORE / 2 })
   }
 
   updateGame = () => {
@@ -169,7 +177,8 @@ class Game extends React.Component {
           height={HEIGHT}
           style={{ marginTop: '10px', border: '1px solid #c3c3c3' }} >
         </canvas>
-        <div className="btn-container">
+        <div className="btn-container no-selection">
+          <span>Score: {(this.state.score)}</span>
           <button className="btn" disabled={!this.state.gameOverInfo} onClick={() => {
             window.location.reload(false);
           }}>Restart</button>
