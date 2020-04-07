@@ -5,10 +5,10 @@ import './styles/main.scss';
 let HEIGHT = window.innerHeight * 0.8; //Screen height
 let WIDTH = window.innerWidth * 0.8; //Screen width
 const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
-const FPS = 120;
-const manufacturedPipeTime = 200; //For Increasing speed, decrease
+const FPS = 80;
+const manufacturedPipeTime = 220; //For Increasing speed, decrease
 let SCORE = 0
-let SPACE = HEIGHT / 3.5; //Between pipes
+let SPACE = HEIGHT / 3.4; //Between pipes
 
 class Bee {
   constructor(ctx) {
