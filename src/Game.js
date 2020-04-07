@@ -9,7 +9,7 @@ const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
 const FPS = 80;
 const manufacturedPipeTime = 250; //For Increasing speed, decrease
 let SCORE = 0
-let SPACE = HEIGHT / 4.5; //Between pipes
+let SPACE = HEIGHT / 3.5; //Between pipes
 
 class Bee {
   constructor(ctx) {
@@ -63,6 +63,7 @@ class Pipe {
 
   increaseScore() {
     SCORE += 1;
+    SPACE = (SPACE > HEIGHT / 5.5) ? SPACE -= 1 : SPACE
   }
 
 }
@@ -76,7 +77,8 @@ class Game extends React.Component {
     this.bee = null;
     this.state = {
       gameOverInfo: false,
-      score: 0
+      score: 0,
+      space: 0
     }
   }
 
@@ -106,12 +108,12 @@ class Game extends React.Component {
 
   gameLoop = () => {
     this.updateGame();
-    this.updateScore();
+    this.updateScoreAndSpace();
     this.draw();
   }
 
-  updateScore = () => {
-    this.setState({ score: SCORE / 2 }) //Because of two discrete pipes
+  updateScoreAndSpace = () => {
+    this.setState({ score: SCORE / 2, space: SPACE }) //Because of two discrete pipes
   }
 
   updateGame = () => {
@@ -180,11 +182,11 @@ class Game extends React.Component {
         <div className="btn-container no-selection"
           style={{ 'width': WIDTH }}
         >
-          <span style={{ visibility: 'hidden' }}>Best Score: </span>
+          <span>Space: {Math.floor(this.state.space)}</span>
           <button className="btn" disabled={!this.state.gameOverInfo} onClick={() => {
             window.location.reload(false);
           }}>Restart</button>
-          <span>Score: {(this.state.score)}</span>
+          <span>Score: {this.state.score}</span>
 
         </div>
       </div>
