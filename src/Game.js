@@ -19,14 +19,16 @@ class Bee {
     this.velocity = 0.24;
   }
 
-  draw() {
-    this.ctx.fillStyle = '#ffce1c';
-    this.ctx.beginPath();
-    this.ctx.arc(this.x, this.y, HEIGHT / 50, 0, 2 * Math.PI, false);
-    this.ctx.fill();
+  drawBee() {
+    var img = document.getElementById("Bee");
+    this.ctx.drawImage(img, this.x, this.y, HEIGHT / 20, HEIGHT / 20);
+    // this.ctx.fillStyle = '#ffce1c';
+    // this.ctx.beginPath();
+    // this.ctx.arc(this.x, this.y, HEIGHT / 50, 0, 2 * Math.PI, false);
+    // this.ctx.fill();
   }
 
-  updateBird() {
+  updateBee() {
     this.gravity += this.velocity;
     this.gravity = Math.min(5, this.gravity)
     this.y += this.gravity;
@@ -48,8 +50,13 @@ class Pipe {
   }
 
   drawPipes() {
-    this.ctx.fillStyle = "#0fff5a";
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    try {
+      var img = document.getElementById("Pipe");
+      this.ctx.drawImage(img, this.x, this.y, this.width, this.height);
+    } catch (error) {
+      this.ctx.fillStyle = "#0fff5a";
+      this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
   }
 
   updatePipe() {
@@ -124,7 +131,7 @@ class Game extends React.Component {
     this.pipes.forEach(pipe => pipe.updatePipe());
     this.pipes = this.pipes.filter(pipe => !pipe.isDead)
 
-    this.bee.updateBird();
+    this.bee.updateBee();
     if (this.isGameOver()) {
       this.endGame();
     }
@@ -150,8 +157,15 @@ class Game extends React.Component {
   draw() {
     var ctx = this.getCtx()
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
+    this.drawBg();
     this.pipes.forEach(pipe => pipe.drawPipes());
-    this.bee.draw();
+    this.bee.drawBee();
+  }
+
+  drawBg = () => {
+    var ctx = this.getCtx();
+    var bg = document.getElementById("bg");
+    ctx.drawImage(bg, 0, 0, WIDTH, HEIGHT);
   }
 
   getCtx = () => this.canvasRef.current.getContext("2d");
@@ -171,6 +185,9 @@ class Game extends React.Component {
   render() {
     return (
       <div className="container">
+        <img id="bg" width='1' height='1' src="bg.png" alt="bg"></img>
+        <img id="Bee" width='1' height='1' src="bee.png" alt="Bee"></img>
+        <img id="Pipe" width='1' height='1' src="pipe.png" alt="Pipe"></img>
         <canvas
           ref={this.canvasRef}
           width={WIDTH}
