@@ -1,4 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can play:  [Play Now](https://vizviz.now.sh/)
+
+## Screenshot
+![screenshot](https://github.com/mustafaberat/Flappy-bee/blob/master/public/VizvizGame.png)
 
 ## Available Scripts
 
