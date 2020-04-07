@@ -4,7 +4,7 @@ import './styles/main.scss';
 
 let HEIGHT = window.innerHeight * 0.8; //Screen height
 let WIDTH = window.innerWidth * 0.8; //Screen width
-const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
+const PIPE_WIDTH = WIDTH / 14; //Pipe Thickness
 const FPS = 80;
 const manufacturedPipeTime = 220; //For Increasing speed, decrease
 let SCORE = 0
@@ -15,13 +15,14 @@ class Bee {
     this.ctx = ctx;
     this.x = WIDTH / 15;
     this.y = HEIGHT / 2; // must - width of icon
+    this.half = HEIGHT / 22;
     this.gravity = 0;
     this.velocity = 0.24;
   }
 
   drawBee() {
     var img = document.getElementById("Bee");
-    this.ctx.drawImage(img, this.x, this.y, HEIGHT / 20, HEIGHT / 20);
+    this.ctx.drawImage(img, this.x, this.y, HEIGHT / 15, HEIGHT / 15);
     // this.ctx.fillStyle = '#ffce1c';
     // this.ctx.beginPath();
     // this.ctx.arc(this.x, this.y, HEIGHT / 50, 0, 2 * Math.PI, false);
@@ -42,7 +43,7 @@ class Bee {
 class Pipe {
   constructor(ctx, height) {
     this.ctx = ctx;
-    this.x = WIDTH * 1.33; //Out of screen
+    this.x = WIDTH * 1.1; //Out of screen
     this.isDead = false;
     this.y = height ? HEIGHT - height : 0;
     this.width = PIPE_WIDTH;
@@ -141,16 +142,19 @@ class Game extends React.Component {
     clearInterval(this.loop)
   }
 
+  // Collision
   isGameOver = () => {
     let gameover = false;
     this.pipes.forEach(pipe => {
-      if (this.bee.y >= HEIGHT || this.bee.y <= 0 || (this.bee.x > pipe.x && this.bee.x < pipe.x + pipe.width &&
-        this.bee.y > pipe.y && this.bee.y < pipe.y + pipe.height)) {
+      if ((this.bee.y + this.bee.half) >= HEIGHT || (this.bee.y + this.bee.half) <= 0 ||
+        ((this.bee.x + this.bee.half) > pipe.x
+          && (this.bee.x + this.bee.half) < pipe.x + pipe.width
+          && (this.bee.y + this.bee.half) > pipe.y
+          && (this.bee.y + this.bee.half) < pipe.y + pipe.height)) {
         gameover = true
         this.setState({ gameOverInfo: true })
       }
     })
-
     return gameover;
   }
 
@@ -174,7 +178,7 @@ class Game extends React.Component {
   restartGame = () => {
     this.setState({ gameOverInfo: false })
     SCORE = 0
-    SPACE = HEIGHT / 3.5; //Between pipes
+    SPACE = HEIGHT / 3.4; //Between pipes
     this.pipes = []
     var ctx = this.getCtx();
     this.bee = new Bee(ctx)
@@ -185,9 +189,9 @@ class Game extends React.Component {
   render() {
     return (
       <div className="container">
-        <img id="bg" width='1' height='1' src="bg.png" alt="bg"></img>
-        <img id="Bee" width='1' height='1' src="bee.png" alt="Bee"></img>
-        <img id="Pipe" width='1' height='1' src="pipe.png" alt="Pipe"></img>
+        <img style={{ visibility: "hidden" }} id="bg" width='1' height='1' src="bg.png" alt="bg"></img>
+        <img style={{ visibility: "hidden" }} id="Bee" width='1' height='1' src="bee.png" alt="Bee"></img>
+        <img style={{ visibility: "hidden" }} id="Pipe" width='1' height='1' src="pipe.png" alt="Pipe"></img>
         <canvas
           ref={this.canvasRef}
           width={WIDTH}
@@ -197,7 +201,7 @@ class Game extends React.Component {
         <div className="btn-container no-selection"
           style={{ 'width': WIDTH }}
         >
-          <span>Space: {Math.floor(this.state.space)}</span>
+          <span>Difficulty: {Math.floor(this.state.score * 2)}%</span>
           <button className="btn" disabled={!this.state.gameOverInfo} onClick={() => {
             // window.location.reload(false);
             this.restartGame();

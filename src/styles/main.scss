@@ -1,3 +1,6 @@
+//FONT
+@import url("https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap");
+
 $red: #ff000f;
 $yellow: #ffce1c;
 $green: #0fff5a;
@@ -14,6 +17,7 @@ $black: #333e40;
 }
 
 body {
+  font-family: "Comic Neue", cursive;
   .container {
     margin-left: auto;
     margin-right: auto;
@@ -30,11 +34,13 @@ body {
       grid-template-columns: 33% 34% 33%;
       text-align: center;
       align-items: center;
+      background-color: $black;
+      color: $green;
       .btn {
         padding: 8px 15px;
-        background-color: $yellow;
+        background-color: $black;
         font-weight: bold;
-        border: 2px solid $black;
+        border: 0;
         border-radius: 4px;
         cursor: pointer;
       }
