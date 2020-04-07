@@ -196,7 +196,7 @@ class Game extends React.Component {
           ref={this.canvasRef}
           width={WIDTH}
           height={HEIGHT}
-          style={{ marginTop: '10px', border: '1px solid #c3c3c3' }} >
+          style={{ marginTop: '10px', border: '2px solid #ffd640' }} >
         </canvas>
         <div className="btn-container no-selection"
           style={{ 'width': WIDTH }}
