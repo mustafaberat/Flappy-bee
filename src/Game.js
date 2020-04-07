@@ -4,10 +4,9 @@ import './styles/main.scss';
 
 let HEIGHT = window.innerHeight * 0.8; //Screen height
 let WIDTH = window.innerWidth * 0.8; //Screen width
-// const WIDTH = 800; //Screen width
 const PIPE_WIDTH = WIDTH / 15; //Pipe Thickness
-const FPS = 80;
-const manufacturedPipeTime = 250; //For Increasing speed, decrease
+const FPS = 120;
+const manufacturedPipeTime = 200; //For Increasing speed, decrease
 let SCORE = 0
 let SPACE = HEIGHT / 3.5; //Between pipes
 
@@ -41,7 +40,7 @@ class Bee {
 class Pipe {
   constructor(ctx, height) {
     this.ctx = ctx;
-    this.x = WIDTH * 1.5; //Out of screen
+    this.x = WIDTH * 1.33; //Out of screen
     this.isDead = false;
     this.y = height ? HEIGHT - height : 0;
     this.width = PIPE_WIDTH;
@@ -63,7 +62,7 @@ class Pipe {
 
   increaseScore() {
     SCORE += 1;
-    SPACE = (SPACE > HEIGHT / 5.5) ? SPACE -= 1 : SPACE
+    SPACE = (SPACE > HEIGHT / 5.6) ? SPACE -= 1 : SPACE
   }
 
 }
@@ -132,7 +131,6 @@ class Game extends React.Component {
   }
 
   endGame = () => {
-    console.log("Frame C: " + this.frameCount)
     clearInterval(this.loop)
   }
 
@@ -160,14 +158,14 @@ class Game extends React.Component {
 
 
   restartGame = () => {
-    this.frameCount = 0
-    clearInterval(this.loop);
-    console.log("in")
+    this.setState({ gameOverInfo: false })
+    SCORE = 0
+    SPACE = HEIGHT / 3.5; //Between pipes
+    this.pipes = []
     var ctx = this.getCtx();
-    this.pipes = this.generatePipes();
     this.bee = new Bee(ctx)
     this.draw()
-    this.loop = setInterval(this.gameLoop, 1000 / this.gameSpeed);
+    this.loop = setInterval(this.gameLoop, (1000 / FPS));
   }
 
   render() {
@@ -184,7 +182,8 @@ class Game extends React.Component {
         >
           <span>Space: {Math.floor(this.state.space)}</span>
           <button className="btn" disabled={!this.state.gameOverInfo} onClick={() => {
-            window.location.reload(false);
+            // window.location.reload(false);
+            this.restartGame();
           }}>Restart</button>
           <span>Score: {this.state.score}</span>
 
